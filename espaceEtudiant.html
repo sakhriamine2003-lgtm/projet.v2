@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Espace Étudiant</title>
+    <script src="https://cdn.tailwindcss.com"></script>
+  </head>
+
+  <body>
+    <div class="fixed top-0 left-0 w-[300px] h-full bg-blue-600 text-white p-5">
+      <div class="flex flex-col items-center gap-4 mt-5">
+        <img
+          class="w-20 h-20"
+          src="https://static.vecteezy.com/system/resources/previews/002/318/271/original/user-profile-icon-free-vector.jpg"
+        />
+        <h1 class="text-lg" id="name">xxxxxxxxxxxxxxxxx</h1>
+      </div>
+
+      <div class="flex flex-col items-center gap-4 mt-10">
+      <button 
+      
+      id="bttn"
+        onclick =' window.location.href = "profil.html"';
+        class="w-40 py-2 rounded-full bg-blue-500 hover:bg-blue-800">
+        Profil
+      </button>
+
+        <button 
+         onclick =' window.location.href = "historique.html"';
+         class="w-40 py-2 rounded-full bg-blue-500 hover:bg-blue-800">
+          Historique
+        </button>
+        <button 
+        onclick =' window.location.href = "statistique.html"'
+        class="w-40 py-2 rounded-full bg-blue-500 hover:bg-blue-800">
+          Statistiques
+        </button>
+      </div>
+    </div>
+
+    <div class="ml-[300px] p-10 grid justify-center">
+      <h1 class="text-2xl font-bold text-gray-800" id="message">
+        
+      </h1>
+
+      <img
+        class="h-[480px] w-96 h-120 rounded-lg shadow mt-8 mx-10"
+        id="img"
+        src="https://cdn.discordapp.com/attachments/1441109441876463758/1455488141552123995/photo.jpg?ex=6954e876&is=695396f6&hm=61da640be0b128c7faf708f208c671061dd0f64ed8e2de4937db24358e7c7648&"
+      />
+    </div>
+    <script src="test.js"></script>
+  </body>
+</html>

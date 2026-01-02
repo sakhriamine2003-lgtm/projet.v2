@@ -1,0 +1,123 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Document</title>
+     <script src="https://cdn.tailwindcss.com"></script>
+</head>
+<body>
+<div class="bg-white p-8 rounded-xl shadow-md max-w-4xl mx-auto">
+
+
+  <h2 class="text-2xl font-semibold text-center mb-8">
+    Mes Statistiques
+  </h2>
+
+ 
+  <div class="grid grid-cols-2 gap-6 mb-10 place-items-center">
+
+   
+    <div class="bg-blue-500 text-white rounded-xl p-4 w-64 text-center shadow">
+      <p class="text-sm">Taux d’absence</p>
+      <p id="tabsence" class="text-xl font-bold mt-1">20%</p>
+    </div>
+
+   
+    <div class="bg-blue-500 text-white rounded-xl p-4 w-64 text-center shadow">
+      <p class="text-sm">Taux de retard</p>
+      <p id="tretard" class="text-xl font-bold mt-1">15%</p>
+    </div>
+
+    
+    <div class="bg-blue-500 text-white rounded-xl p-4 w-64 text-center shadow">
+      <p class="text-sm">Jours présents</p>
+      <p id="jours" class="text-xl font-bold mt-1">13</p>
+    </div>
+
+   
+    <div class="bg-blue-500 text-white rounded-xl p-4 w-64 text-center shadow">
+      <p class="text-sm">Heure moyenne d’arrivée en retard</p>
+      <p id="moyenneH" class="text-xl font-bold mt-1">09:13</p>
+    </div>
+
+  </div>
+
+  
+  <div id="Chart" class=" w-3xl h-64 bg-gray-100 rounded-lg flex items-center justify-self-center text-xs">
+     <canvas id="myChart" width="400" height="200"></canvas>
+  </div>
+
+</div>
+<script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
+
+
+<script>
+  const user = JSON.parse(localStorage.getItem("user"));
+  if (!user) {
+      alert("Utilisateur non connecté !");
+      window.location.href = "index.html";
+  }
+
+  const presences = JSON.parse(localStorage.getItem("presences")) || [];
+
+  const userPresences = presences.filter(p => p.id === user.id);
+
+  const total = userPresences.length || 1; // éviter division par 0
+  const present = userPresences.filter(p => p.statut === "present").length;
+  const retard = userPresences.filter(p => p.statut === "retard").length;
+  const absent = userPresences.filter(p => p.statut === "absent").length;
+
+  
+  const tauxAbs = ((absent / total) * 100).toFixed(1) + "%";
+  const tauxRet = ((retard / total) * 100).toFixed(1) + "%";
+  const joursPres = present;
+
+  let heuresRetard = userPresences
+    .filter(p => p.statut === "retard" && p.heure)
+    .map(p => {
+      const [h, m] = p.heure.split(":").map(Number);
+      return h * 60; 
+    });
+
+  let moyenneMin = heuresRetard.length > 0 ? Math.round(heuresRetard.reduce((a,b)=>a+b,0)/heuresRetard.length) : 0;
+  let moyenneH = Math.floor(moyenneMin / 60).toString().padStart(2,'0') + ":" + (moyenneMin % 60).toString().padStart(2,'0');
+
+  document.getElementById("tabsence").textContent = tauxAbs;
+  document.getElementById("tretard").textContent = tauxRet;
+  document.getElementById("jours").textContent = joursPres;
+  document.getElementById("moyenneH").textContent = moyenneH;
+
+  const ctx = document.getElementById('myChart');
+  const data = {
+    labels: ['Absences', 'Retards', 'Présences'],
+    datasets: [{
+      label: 'Mes Statistiques',
+      data: [absent, retard, present],
+      backgroundColor: [
+        'rgba(255, 99, 132, 0.5)',
+        'rgba(255, 206, 86, 0.5)',
+        'rgba(75, 192, 192, 0.5)'
+      ],
+      borderColor: [
+        'rgb(255, 99, 132)',
+        'rgb(255, 206, 86)',
+        'rgb(75, 192, 192)'
+      ],
+      borderWidth: 1
+    }]
+  };
+  const config = {
+    type: 'bar',
+    data: data,
+    options: {
+      scales: {
+        y: { beginAtZero: true }
+      }
+    }
+  };
+  new Chart(ctx, config);
+</script>
+
+</body>
+</html>

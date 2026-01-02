@@ -1,0 +1,58 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <title>profile</title>
+</head>
+<body class="bg-with">
+<div class="p-35 ">
+    <div class="bg-blue-400 p-10 rounded-xl max-w-3xl mx-auto hover:bg-blue-800">
+        <div class="space-y-6">
+        <div class="bg-blue-500 p-3 rounded text-white">
+          <b>Nom :</b> <span id="nom"></span>
+        </div>
+        <div class="bg-blue-500 p-3 rounded text-white">
+          <b>Prénom :</b> <span id="prenom"></span>
+        </div>
+        <div class="bg-blue-500 p-3 rounded text-white">
+          <b>Groupe :</b> <span id="group"></span>
+        </div>
+        <div class="bg-blue-500 p-3 rounded text-white">
+          <b>Statut global :</b> <span id="statut"></span>
+        </div>
+    </div>
+</div>
+
+
+<script>
+const user = JSON.parse(localStorage.getItem("user"));
+document.getElementById("nom").textContent = user.nom;
+document.getElementById("prenom").textContent = user.prenom;
+document.getElementById("group").textContent = user.group;
+
+
+const presences = JSON.parse(localStorage.getItem("presences")) || [];
+const userPresences = presences.filter(p => p.id === user.id);
+
+let absent = 0, retard = 0;
+userPresences.forEach(p => {
+  if(p.statut === "absent") absent++;
+  else if(p.statut === "retard") retard++;
+});
+
+let statut = "Assidu";
+if(absent >= 3) statut = "Absent fréquent";
+else if(retard >= 3) statut = "À surveiller";
+
+document.getElementById("statut").textContent = statut;
+
+</script>
+
+
+
+
+<script src="test.js"></script>
+</body>
+</html> 

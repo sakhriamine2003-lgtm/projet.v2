@@ -1,0 +1,188 @@
+<!DOCTYPE html>
+<html lang="en">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>Historique</title>
+    <script src="https://cdn.jsdelivr.net/npm/@tailwindcss/browser@4"></script>
+    <style>
+      .actions {
+        display: inline-flex;
+        gap: 0.5rem;
+        justify-content: center;
+        align-items: center;
+      }
+      .action-btn {
+        background: #7c3aed;
+        color: #fff;
+        border: 0;
+        padding: 0.5rem 0.9rem;
+        border-radius: 999px;
+        font-weight: 600;
+        cursor: pointer;
+        box-shadow: 0 2px 6px rgba(0, 0, 0, 0.08);
+      }
+      .action-btn.download {
+        background: #6b7280;
+      }
+      .action-btn:focus {
+        outline: 2px solid rgba(124, 58, 237, 0.25);
+        outline-offset: 2px;
+      }
+      table {
+        border-collapse: collapse;
+        width: 100%;
+      }
+      @media (max-width: 640px) {
+        .actions {
+          gap: 0.35rem;
+        }
+        .action-btn {
+          padding: 0.4rem 0.6rem;
+          font-size: 0.85rem;
+        }
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container p-2 mx-auto sm:p-4 dark:text-gray-800">
+      <h2 class="mb-4 text-2xl font-semibold leading-tight flex justify-center">
+        Historique
+      </h2>
+      <div class="overflow-x-auto">
+        <table class="min-w-full text-xs">
+          <thead class="dark:bg-gray-300">
+            <tr class="text-left">
+              <th class="p-3 bg-blue-800 text-white font-semibold">Date</th>
+              <th class="p-3 bg-blue-800 text-white font-semibold">Statut</th>
+              <th class="p-3 bg-blue-800 text-white font-semibold">
+                l’horaire
+              </th>
+              <th class="p-3 text-center bg-blue-800 text-white font-semibold">
+                Motif
+              </th>
+            </tr>
+          </thead>
+          <tbody>
+            <tr
+              class="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+            >
+              <td class="p-3">
+                <p>97412378923</p>
+              </td>
+              <td class="p-3">
+                <p>Microsoft Corporation</p>
+              </td>
+
+              <td class="p-3 text-right">
+                <p>$15,792</p>
+              </td>
+              <td class="p-3 text-center">
+                <div class="actions">
+                  <button class="action-btn motif">Motif</button>
+                  <button class="action-btn download">Télécharger</button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+            >
+              <td class="p-3">
+                <p>97412378923</p>
+              </td>
+              <td class="p-3">
+                <p>Tesla Inc.</p>
+              </td>
+
+              <td class="p-3 text-right">
+                <p>$275</p>
+              </td>
+              <td class="p-3 text-center">
+                <div class="actions">
+                  <button class="action-btn motif">Motif</button>
+                  <button class="action-btn download">Télécharger</button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+            >
+              <td class="p-3">
+                <p>14 Jan 2022</p>
+                <p class="dark:text-gray-600">Friday</p>
+              </td>
+              <td class="p-3">
+                <p>01 Feb 2022</p>
+                <p class="dark:text-gray-600">Tuesday</p>
+              </td>
+              <td class="p-3 text-right">
+                <p>$8,950,500</p>
+              </td>
+              <td class="p-3 text-center">
+                <div class="actions">
+                  <button class="action-btn motif">Motif</button>
+                  <button class="action-btn download">Télécharger</button>
+                </div>
+              </td>
+            </tr>
+            <tr
+              class="border-b border-opacity-20 dark:border-gray-300 dark:bg-gray-50"
+            >
+              <td class="p-3">
+                <p>14 Jan 2022</p>
+                <p class="dark:text-gray-600">Friday</p>
+              </td>
+              <td class="p-3">
+                <p>01 Feb 2022</p>
+                <p class="dark:text-gray-600">Tuesday</p>
+              </td>
+              <td class="p-3 text-right">
+                <p>$98,218</p>
+              </td>
+              <td class="p-3 text-center">
+                <div class="actions">
+                  <button class="action-btn motif">Motif</button>
+                  <button class="action-btn download">Télécharger</button>
+                </div>
+              </td>
+            </tr>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+    <script> 
+
+  const user = JSON.parse(localStorage.getItem("user"));
+
+  if (!user) {
+    alert("Utilisateur non connecté !");
+    window.location.href = "index.html"; 
+  }
+
+  const presences = JSON.parse(localStorage.getItem("presences")) || [];
+
+  const userPresences = presences.filter(p => p.id === user.id);
+
+  
+  const tbody = document.querySelector("table tbody");
+  tbody.innerHTML = "";
+
+  userPresences.forEach(p => {
+    const tr = document.createElement("tr");
+    tr.innerHTML = `
+      <td class="p-3">${p.date}</td>
+      <td class="p-3">${p.statut}</td>
+      <td class="p-3 text-right">${p.heure || '-'}</td>
+      <td class="p-3 text-center">${p.motif || '-'}</td>
+    `;
+    tbody.appendChild(tr);
+  });
+</script>
+
+
+
+    <script src="test.js"></script>
+
+  </body>
+</html>

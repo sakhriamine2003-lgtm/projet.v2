@@ -35,15 +35,6 @@ window.onload = function() {
 localStorage.setItem("presences", JSON.stringify(presences));
 
 
-localStorage.setItem("presences", JSON.stringify(presences));
-
-
-
-
-
-  
-
-
   if (btnEntrez) {
     btnEntrez.onclick = function () {
       const id = Number(document.getElementById("idApp").value);
@@ -76,10 +67,10 @@ localStorage.setItem("presences", JSON.stringify(presences));
 
     if (name) name.textContent = `${user.nom} ${user.prenom}`;
     if (message) message.textContent = `BIENVENU ${user.nom} ${user.prenom} DANS L’ESPACE ÉTUDIANT`;
-
-  } else { 
-      window.location.href = "espaceEtudiant.html";
-    }
+  }
+  //  else { 
+  //     window.location.href = "espaceEtudiant.html";
+  //   }
 }
 // ----------------------- partie  profil ----------------------------------
 // let nom = document.getElementById("nom");

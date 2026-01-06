@@ -1,0 +1,134 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+  <meta charset="UTF-8" />
+  <title>Gestion des absences</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+
+  <script src="https://cdn.tailwindcss.com"></script>
+  <link
+    rel="stylesheet"
+    href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css"
+  />
+</head>
+
+<body class="bg-gray-100 min-h-screen flex">
+
+  
+  <aside class="w-64 bg-indigo-600 text-white p-4 hidden md:block">
+    <h2 class="text-xl font-bold mb-6 text-center">
+      Gestion Absences
+    </h2>
+
+    <button onclick="showPage('students')" class="w-full text-left px-3 py-2 hover:bg-white/20 rounded mb-2">
+       Apprenants
+    </button>
+
+    <button onclick="showPage('attendance')" class="w-full text-left px-3 py-2 hover:bg-white/20 rounded mb-2">
+      Présence
+    </button>
+
+    <button onclick="showPage('history')" class="w-full text-left px-3 py-2 hover:bg-white/20 rounded mb-2">
+       Historique
+    </button>
+
+    <button onclick="showPage('stats')" class="w-full text-left px-3 py-2 hover:bg-white/20 rounded">
+      Statistiques
+    </button>
+  </aside>
+
+
+  <main class="flex-1 p-6">
+
+    <div id="students" class="page">
+      <div class="flex justify-between mb-4">
+        <h2 class="text-xl font-bold">Apprenants</h2>
+        <button onclick="openModal()" class="bg-indigo-600 text-white px-4 py-2 rounded">
+          + Ajouter
+        </button>
+      </div>
+
+      <table class="w-full border">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="border p-2">Nom</th>
+            <th class="border p-2">Prénom</th>
+            <th class="border p-2">Groupe</th>
+            <th class="border p-2">Action</th>
+            <th class="border p-2">password</th>
+
+            
+          </tr>
+        </thead>
+        <tbody id="studentsTable"></tbody>
+      </table>
+    </div>
+
+    
+    <div id="attendance" class="page hidden">
+      <h2 class="text-xl font-bold mb-4">Prise de présence</h2>
+
+      <button onclick="loadAttendanceList()" class="bg-indigo-600 text-white px-4 py-2 rounded mb-4">
+        Charger la liste
+      </button>
+
+      <table class="w-full border">
+        <thead class="bg-gray-200">
+          <tr>
+            <th class="border p-2">Nom</th>
+            <th class="border p-2">Prénom</th>
+            <th class="border p-2">Groupe</th>
+            <th class="border p-2">Statut</th>
+          </tr>
+        </thead>
+        <tbody id="attendanceTable"></tbody>
+      </table>
+    </div>
+
+   
+    <div id="history" class="page hidden">
+      <h2 class="text-xl font-bold mb-4">Historique</h2>
+      <div id="historyList"></div>
+    </div>
+
+    
+    <div id="stats" class="page hidden">
+      <h2 class="text-xl font-bold mb-4">Statistiques</h2>
+
+      <div class="grid grid-cols-3 gap-4">
+        <div class="bg-green-100 p-4 rounded">
+          Présents : <b id="stat-present">0</b>
+        </div>
+        <div class="bg-red-100 p-4 rounded">
+          Absents : <b id="stat-absent">0</b>
+        </div>
+        <div class="bg-yellow-100 p-4 rounded">
+          Retards : <b id="stat-late">0</b>
+        </div>
+      </div>
+    </div>
+
+  </main>
+
+  
+  <div id="modal" class="hidden fixed inset-0 bg-black/40 flex items-center justify-center">
+    <div class="bg-white p-6 rounded w-96">
+      <h3 class="font-bold mb-4">Ajouter un apprenant</h3>
+
+      <input id="nom" class="border w-full mb-2 p-2" placeholder="Nom">
+      <input id="prenom" class="border w-full mb-2 p-2" placeholder="Prénom">
+      <input id="groupe" class="border w-full mb-4 p-2" placeholder="Groupe">
+       <input id="mdp" class="border w-full mb-4 p-2" placeholder="mot de passe">
+
+
+
+      <div class="flex justify-end gap-2">
+        <button onclick="closeModal()" class="border px-4 py-2">Annuler</button>
+        <button onclick="saveStudent()" class="bg-indigo-600 text-white px-4 py-2">Sauvegarder</button>
+      </div>
+    </div>
+  </div>
+
+  <script src="projet1.js"></script>
+</body>
+</html>
